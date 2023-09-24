@@ -1,8 +1,24 @@
 <?php
 
-$conn = mysqli_connect("localhost","root","", "talkaitdb");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "talkaitdb";
+
+// Attempt to connect to the MySQL server
+$conn = mysqli_connect($servername, $username, $password);
 if (!$conn) {
-    echo "conn error";
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Check if the database exists, and if not, create it
+if (!mysqli_select_db($conn, $dbname)) {
+    $createDatabaseSQL = "CREATE DATABASE $dbname";
+    if (mysqli_query($conn, $createDatabaseSQL)) {
+        echo "Database created successfully. ";
+    } else {
+        die("Error creating database: " . mysqli_error($conn));
+    }
 }
 // else{ echo "conn success";
 // }

@@ -3,7 +3,6 @@ const moodOptionBtn = document.getElementById("moodOption");
 const post = document.getElementById('post');
 const moodWrite = document.getElementById('moodWrite');
 const textarea = document.createElement('textarea');
-const listen = document.querySelector('.listen');
 const right = document.getElementsByClassName('right');
 
 const happy = document.getElementsByClassName('happy');
@@ -21,25 +20,19 @@ let pressCount = 0;
 
 function moodAsk() {
   if (pressCount % 2 == 0) {
-    // moodAskBtn.style.transform = "translateY(3px)";
     moodAskBtn.style.boxShadow = "0px 5px 3px rgb(205,205,205)";
     moodOptionBtn.style.display = 'block'
   } else {
-    // moodAskBtn.style.transform = "translateY(0px)";
     moodAskBtn.style.boxShadow = " 0px 3px 8px rgb(215, 215, 215)";
     moodOptionBtn.style.display = 'none'
   }
   pressCount++;
 }
 
-// moodAskBtn.addEventListener("click",moodAsk());
-
 function mood(emotion) {
-  
   listen.style.marginTop = "80px";
   post.style.display = "block";
   moodWrite.style.width = 100 + "%";
-
   switch (emotion) {
     case "happy":
       textarea.name = "happy";
@@ -69,11 +62,13 @@ function mood(emotion) {
       textarea.name = "journal";
       moodWrite.appendChild(textarea);
       break;
+      default:
+        break;
   }
 }
 
 
-const breatheExe = () => {
-  // exe.innerHTML = ;
+// const breatheExe = () => {
+//   // exe.innerHTML = ;
 
-}
+// }
