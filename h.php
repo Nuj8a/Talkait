@@ -61,20 +61,8 @@
         <div id=listen>
           <div id="music" >
             <audio controls src="audio/5min.mp3"></audio>
-            <audio></audio>
-            <audio></audio>
+            <audio controls src="audio/10min.mp3"></audio>
           </div>
-          <!-- <div id="controls">
-            <div id="controls-left">
-              <button id="play"></button>
-              <button id="pause"></button>
-            </div>
-            <div id="controls-right">
-              <p id="topic"></p>
-              <button id="next"></button>
-              <button id="previous"></button>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
