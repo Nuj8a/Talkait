@@ -1,42 +1,30 @@
 <?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "talkaitdb";
-
-// Attempt to connect to the MySQL server
-$conn = mysqli_connect($servername, $username, $password);
+session_start();
+$conn = mysqli_connect("localhost","root","", "talkaitdb");
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+    echo "conn error";
 }
-
-// Check if the database exists, and if not, create it
-if (!mysqli_select_db($conn, $dbname)) {
-    $createDatabaseSQL = "CREATE DATABASE $dbname";
-    if (mysqli_query($conn, $createDatabaseSQL)) {
-        echo "Database created successfully. ";
-    } else {
-        die("Error creating database: " . mysqli_error($conn));
-    }
-}
-// else{ echo "conn success";
-// }
 
 if (isset($_POST['signupbtn'])) {
     $email = $_POST['signup-email'];
     $username = $_POST['signup-username'];
     $password = $_POST['signup-password'];
+    $confirmPassword = $_POST['confirm-password'];
 
+    // Check if the passwords match
+    if ($password !== $confirmPassword) {
+        echo "Passwords do not match";
+        exit;}
+    else{
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $sql = "INSERT INTO users (email, username, password) VALUES ('$email', '$username', '$hashedPassword')";
     if (mysqli_query($conn,$sql) === TRUE) {
-        header("Location: ../h.php");
+        header("Location:index.php");
         exit;
         // echo "saved success";
     } else {
-        echo "error occured";
-    }
+        header("Location:error.html");
+    }}
 }
 
 if (isset($_POST['loginbtn'])) {
@@ -57,19 +45,20 @@ if (isset($_POST['loginbtn'])) {
             
             // Insert session data into the 'sessions' table
             $sql = "INSERT INTO sessions (user_id, session_token, expiry_date) VALUES ('$user_id', '$session_token', '$expiry_date')";
+            $_SESSION['user_id'] = $user_id;
             if (mysqli_query($conn,$sql) === TRUE) {
     
-                header("Location: ../h.php");
+                header("Location:home.php");
                 exit;
                 // echo "log in success";
             } else {
-                echo "error in session creation";
+                header("Location:error.html");
             }
         } else {
-            echo "Invalid password";
+            header("Location:error.html");
         }
     } else {
-        echo " User not found";
+        header("Location:error.html");
     }
 }
 
